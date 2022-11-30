@@ -1,0 +1,56 @@
+{
+  "name": "electron-auto-update-simple",
+  "version": "4.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "publish": "build -p always",
+    "build": "electron-builder -p always",
+    "mwl": "electron-builder -mwl",
+    "run-server": "http-server dist -p 8080",
+    "sign-dev-electron-app": "codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.app"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "electron-log": "^4.4.8",
+    "electron-updater": "^5.3.0",
+    "http-server": "^14.1.1"
+  },
+  "build": {
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1:8080/"
+      }
+    ],
+    "productName": "Electron test app auto update",
+    "appId": "com.github.Electron",
+    "mac": {
+      "target": [
+        "zip",
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": "NSIS"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^21.2.3",
+    "electron-builder": "^23.6.0",
+    "tls-check": "^1.0.0"
+  }
+}

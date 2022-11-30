@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+      Current Version <span id="version">vX.X.X</span>
+      <div id="messages"></div>
+    <script>
+
+      // get app version
+      // let remote = require('@electron/remote');
+      // console.log(remote.BrowserWindow)
+      // const { BrowserWindow } = require('@electron/remote') 
+      // console.log(BrowserWindow)
+      // Initial display version 
+     
+      
+      // Import ipcRenderer, this module is electron api to comunicate with main and renderer process
+      const {ipcRenderer} = require('electron');
+      const remoteMain = require('@electron/remote');
+      const version = remoteMain.app.getVersion();
+       document.getElementById('version').innerText = version;
+      /** 
+       * Listen for messages from main process
+       * If the main process send data key name "message" 
+       * renderer process with receive data and working in callback function
+       * 
+       * This function just receive and display it in tag id "messages"
+       * to response what auto updater working now
+      */
+      ipcRenderer.on('message', function(event, text) {
+        var container = document.getElementById('messages');
+        var message = document.createElement('div');
+        message.innerHTML = text;
+        container.appendChild(message);
+      })
+    </script>
+  </body>
+</html>
